@@ -8,7 +8,7 @@ class Vozila(object):
         
 
     def izpisi_vozilo(self):
-        return self.znamka + ", " + self.model + ": " + self.st_km
+        return self.znamka + ", " + self.model + ": " + self.st_km + " km " + self.datum_servisa
 
 moja_vozila = []
 
@@ -67,7 +67,7 @@ def uredi_vozilo():
     datum_servisa = raw_input("Datum zadnjega servisa: ")
 
     
-    kontakt = Contact(znamka, model, st_km, datum_servisa)
+    vozilo = Vozila(znamka, model, st_km, datum_servisa)
 
     
     moja_vozila[num] = vozilo
@@ -96,3 +96,25 @@ while True:
     else:
         print("Nisem razumel odgvora :(")
 
+
+with open("seznam_vozil.txt", "w+") as vozila_file:
+    vozila_file.write("Seznam vozil:\n")
+    vozila_file.write("-" * 50 + "\n ")
+    for vozilo in moja_vozila:
+
+        vozila_file.write("\t| " + str(vozilo.znamka) + "\t|")
+        vozila_file.write(str(vozilo.model) + "\t|")
+        vozila_file.write(str(vozilo.st_km) + "km\t|")
+        vozila_file.write(str(vozilo.datum_servisa) + "\t|\n")
+
+
+    import pickle
+
+    with open("pickle_out", "wb") as pickle_datoteka:
+        pickle.dump(moja_vozila, pickle_datoteka)
+
+    
+    
+
+
+    
